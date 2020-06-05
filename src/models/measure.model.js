@@ -9,14 +9,12 @@ var measureSchema = new mongoose.Schema({
 
 var Measure = mongoose.model('Measure', measureSchema);
 
+Measure.getAll = () => {
+  return Measure.find({});
+}
 
-export { Measure };
+Measure.addMeasure = (newMeasure) => {
+  return newMeasure.save();
+}
 
-
-
-// const Measure = mongoose.model('Measure', {
-//   id: 1,
-//   name: "Sirabhop Kongruangkit",
-//   data1: 120,
-//   data2: 50
-// })
+export default Measure;

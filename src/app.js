@@ -1,23 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+
 import connectToDB from './db/db';
-
-// import { Measure } from './models/measure.js';
-
-
-// mongoose.connect('mongodb://127.0.0.1:2717/songsmai', {
-//   useNewUrlParser: true,
-//   useCreateIndex: true,
-//   useFindAndModify: false,
-//   useUnifiedTopology: true
-// })
-// console.log("connect to mongodb server")
-
-
-
-connectToDB();
-var db = mongoose.connection;
+import measureRoute from './routes/measure.route';
 
 
 // var measure1 = new Measure({ name: "Sirabhop Kongruangkit", height: 175, weight: 65 });
@@ -30,36 +15,19 @@ const app = express();
 const port = process.env.PORT || 12000;
 
 // // parse application/x--www-form-urlencoded
-// app.use(bodyParser.urlencoded( { extended: false }));
+app.use(bodyParser.urlencoded( { extended: false }));
 // // parse application/json
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 
-// // PageTransitionEvent.initialize();
+
+app.use(measureRoute);
 
 
-// const measures = [
-//   {
-//     id: 1,
-//     name: "Sirabhop Kongruangkit",
-//     data1: 120,
-//     data2: 50
-//   }
-// ]
+connectToDB();
 
-
-// // app.get('/', (req, res) => {
-// //   res.send("This is the front-site!!");
-// // });
-
-
-// app.get('/measure', (req, res) => {
-//   res.send(measures);
-// });
-
-// app.post('/measure', (req, res) => {
-//   res.send(req.body)
-// })
-
+app.get('/', (req, res) => {
+  res.send("Invalid endpoint!");
+});
 
 app.listen(port, console.log(`main application is listening to port: ${port}`));
